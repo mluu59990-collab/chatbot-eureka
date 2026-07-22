@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed-data-job
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: seed
+          image: be-backend:v3
+          imagePullPolicy: IfNotPresent
+          command: ["python","seed_data.py"]
+          envFrom:
+            - secretRef:
+                name: backend-secret
+                

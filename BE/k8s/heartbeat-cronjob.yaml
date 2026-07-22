@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: heartbeat-cronjob
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: heartbeat
+              image: be-backend:v3
+              imagePullPolicy: IfNotPresent
+              command: ["python", "-c", "from datetime import datetime; print('Heartbeat lúc', datetime.now())"]

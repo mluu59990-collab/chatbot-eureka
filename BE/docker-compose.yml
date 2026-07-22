@@ -1,0 +1,35 @@
+services:
+  chatbot-db:
+    image: postgres:16-alpine
+    container_name: chatbot-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chatbot
+    ports:
+      - "5433:5432"
+    volumes:
+      - chatbot-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: .
+    container_name: chatbot-be
+    ports:
+      - "9000:9000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@chatbot-db:5432/chatbot
+      SECRET_KEY: ${SECRET_KEY}
+      LLM_API_KEY: ${LLM_API_KEY}
+      LLM_BASE_URL: ${LLM_BASE_URL}
+      LLM_MODEL: ${LLM_MODEL}
+    depends_on:
+      chatbot-db:
+        condition: service_healthy
+
+volumes:
+  chatbot-db-data:
