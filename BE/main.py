@@ -170,7 +170,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-@app.get("/")
-def test():
-    return {"Chatbot": "Chatbot v2 is running...."}
+
 Instrumentator().instrument(app).expose(app)
