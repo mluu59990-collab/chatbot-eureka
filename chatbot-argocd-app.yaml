@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: chatbot-be
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mluu59990-collab/chatbot-eureka.git
+    targetRevision: main
+    path: BE/chatbot-chart
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

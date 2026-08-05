@@ -1,0 +1,14 @@
+#Tên hiển thị cho người đọc
+name: Hello World Workflows
+# on này là chạy khi nào, ở dưới là push là nó sẽ chạy mỗi khi mình push code lên github
+on:
+  push:
+# một workflows chứa 1 hoặc nhiều job. Mỗi job chạy trên 1 máy ảo riêng biêt hoàn toàn
+jobs:
+  #Đây là ID của job bạn tự đặt tên
+  say-hello:
+  #Hệ điều hành của máy ảo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello
+        run: echo "hello from Chatbot CI/CD!"
