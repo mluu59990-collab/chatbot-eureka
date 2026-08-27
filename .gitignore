@@ -1,2 +1,8 @@
 .DS_Store
 .DS_Store
+.env
+clean_text/
+data_TTND/
+embedding_output/
+hybrid_output/
+vector_db/chroma/

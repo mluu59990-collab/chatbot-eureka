@@ -1,12 +1,14 @@
 loki:
   enabled: true
+  #Loki cần PVC để lưu log lâu dài 
   persistence:
     enabled: true
     size: 5Gi
   config:
+  #Chỉ giữ log 3 ngày
     limits_config:
       retention_period: 72h
-
+# Bật agent thu thập log tự động trên mọi node
 promtail:
   enabled: true
 
